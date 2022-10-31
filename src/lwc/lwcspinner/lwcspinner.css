@@ -1,0 +1,6 @@
+/**
+ * Created by cnaranjo on 10/28/22.
+ */
+:host .withOutBackground {
+    background-color: transparent;
+}

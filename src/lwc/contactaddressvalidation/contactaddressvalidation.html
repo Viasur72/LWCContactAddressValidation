@@ -1,0 +1,81 @@
+<!--
+ - Created by cnaranjo on 10/28/22.
+ -->
+
+<!-- Contactaddressvalidation -->
+<template>
+  <c-lwcspinner></c-lwcspinner>
+  <div if:true={errorMessage} class="slds_p_top_xx_small">
+    <c-errormessage error-msg={errorMessage}></c-errormessage>
+  </div>
+  <lightning-card title="Address Validation" icon-name="standard:address" class={styleName}>
+    <div>
+      <lightning-layout class="slds-m-around_xx-small" multiple-rows=true>
+        <lightning-layout-item padding="around-small" size="6">
+          <lightning-input
+                  name="mailingStreet"
+                  label="Mailing Street"
+                  value={mailingStreet}
+                  onchange={handleFieldChange}
+                  required="true">
+          </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="6">
+          <lightning-input
+                  name="mailingCity"
+                  label="Mailing City"
+                  value={mailingCity}
+                  onchange={handleFieldChange}
+                  required="true">
+          </lightning-input>
+        </lightning-layout-item>
+      </lightning-layout>
+      <lightning-layout class="slds-m-around_xx-small" multiple-rows=true>
+        <lightning-layout-item padding="around-small" size="6">
+          <lightning-input
+                  name="mailingPostalCode"
+                  label="Mailing Post Code"
+                  value={mailingPostalCode}
+                  onchange={handleFieldChange}
+                  required="true">
+          </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="6">
+          <lightning-input
+                  name="mailingCountry"
+                  label="Mailing Country"
+                  value={mailingCountry}
+                  min-length=2
+                  onchange={handleFieldChange}
+                  required="true">
+          </lightning-input>
+        </lightning-layout-item>
+      </lightning-layout>
+      <div slot="footer">
+        <div class="slds-text-align_center">
+          <lightning-button-group>
+            <lightning-button
+                    type="submit"
+                    label="Validate Address"
+                    title="Validate"
+                    onclick={submitValidation}>
+            </lightning-button>
+            <lightning-button
+                    type="submit"
+                    label="Update Address"
+                    title="Update Address"
+                    disabled={overwriteAddress}
+                    onclick={updateAddress}>
+            </lightning-button>
+          </lightning-button-group>
+          <div if:true={validated} class="slds-visible">
+            <div class="slds-text-color_success"><i>ADDRESS VERIFIED!</i></div>
+          </div>
+          <div if:false={validated} class="slds-visible">
+            <div class="slds-text-color_error"><i>ADDRESS NOT FULLY VERIFIED</i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </lightning-card>
+</template>
