@@ -20,13 +20,20 @@ private class LWC_ContactAddressValidationTest {
 
     @IsTest
     static void testLoadContact() {
-        //Give
+        // Given
         Contact contact = getContact();
 
         // When
         Test.startTest();
         Contact returnedContact = LWC_ContactAddressValidation.loadContact(contact.Id);
         Test.stopTest();
+
+        // Then
+        System.assertNotEquals(null, returnedContact.Address_Verified__c, 'Missing input value');
+        System.assertNotEquals(null, returnedContact.MailingStreet, 'Missing input value');
+        System.assertNotEquals(null, returnedContact.MailingPostalCode, 'Missing input value');
+        System.assertNotEquals(null, returnedContact.MailingCountry, 'Missing input value');
+        System.assertNotEquals(null, returnedContact.MailingCity, 'Missing input value');
     }
 
     @IsTest
@@ -40,11 +47,14 @@ private class LWC_ContactAddressValidationTest {
         Map<String, Object> result = LWC_ContactAddressValidation.validationAddressInputFields(addressParameters);
         Test.stopTest();
 
+        // Then
+        System.assertEquals('Success! Address Validated!', result.get('message'), 'Wrong message value');
+        System.assertEquals(false, result.get('error'), 'Wrong error input value');
     }
 
     @IsTest
     static void testValidationAddressUpdateFields() {
-        //Give
+        // Given
         Map<String, Object> addressParameters = getContactWithParameters();
 
         // When
@@ -52,11 +62,14 @@ private class LWC_ContactAddressValidationTest {
         Map<String, Object> result = LWC_ContactAddressValidation.validationAddressUpdateFields(addressParameters);
         Test.stopTest();
 
+        // Then
+        System.assertEquals('Success! Address Updated!', result.get('message'), 'Wrong message value');
+        System.assertEquals(false, result.get('error'), 'Wrong error input value');
     }
 
     @IsTest
     static void testValidationAddressUpdateFieldsOneFieldMissing() {
-        //Give
+        // Given
         String message = LWC_ContactAddressValidation.PLEASE_FILL_ALL_FIELDS_ON_UPDATE;
         Map<String, Object> addressParameters = getContactWithParametersWithNullValue();
 
@@ -72,7 +85,7 @@ private class LWC_ContactAddressValidationTest {
 
     @IsTest
     static void testValidationAddressUpdateFieldsMailingCountryToShort() {
-        //Give
+        // Given
         String message = LWC_ContactAddressValidation.COUNTRY_LENGTH_TOO_SHORT_ON_UPDATE;
         Map<String, Object> addressParameters = getContactWithParameters();
         addressParameters.put('mailingCountry', 'A');
@@ -89,7 +102,7 @@ private class LWC_ContactAddressValidationTest {
 
     @IsTest
     static void testValidationAddressInputFieldsOneFieldMissing() {
-        //Give
+        // Given
         LWC_ContactAddressValidation.allowHTTPCallout = false;
         String message = LWC_ContactAddressValidation.PLEASE_FILL_ALL_FIELDS;
         Map<String, Object> addressParameters = getContactWithParametersWithNullValue();
@@ -106,7 +119,7 @@ private class LWC_ContactAddressValidationTest {
 
     @IsTest
     static void testValidationAddressInputFieldsMailingCodeToShort() {
-        //Give
+        // Given
         LWC_ContactAddressValidation.allowHTTPCallout = false;
         String message = LWC_ContactAddressValidation.COUNTRY_LENGTH_TOO_SHORT;
         Map<String, Object> addressParameters = getContactWithParameters();
