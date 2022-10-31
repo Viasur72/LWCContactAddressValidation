@@ -49,8 +49,4 @@ public with sharing class ValidationAddressListsInput {
             public String thoroughfare_type;
         }
 
-
-        public static List<ValidationAddressListsInput> parse(String json) {
-            return (List<ValidationAddressListsInput>) System.JSON.deserialize(json, List<ValidationAddressListsInput>.class);
-        }
     }
