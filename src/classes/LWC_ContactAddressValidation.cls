@@ -147,6 +147,10 @@ public with sharing class LWC_ContactAddressValidation {
             } catch (ValidationException e) {
                 message = e.getMessage();
                 error = true;
+            } 
+            catch (CalloutException e) {
+                message = e.getMessage();
+                error = true;
             }
         }
 
