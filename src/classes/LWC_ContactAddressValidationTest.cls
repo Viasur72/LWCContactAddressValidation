@@ -40,10 +40,10 @@ private class LWC_ContactAddressValidationTest {
     static void testValidationAddressInputFields() {
         //Give
         Map<String, Object> addressParameters = getContactWithParameters();
-        Test.setMock(HttpCalloutMock.class, new LWC_ContactAddressValidationMockCallout());
 
         // When
         Test.startTest();
+        Test.setMock(HttpCalloutMock.class, new LWC_ContactAddressValidationMockCallout());
         Map<String, Object> result = LWC_ContactAddressValidation.validationAddressInputFields(addressParameters);
         Test.stopTest();
 
