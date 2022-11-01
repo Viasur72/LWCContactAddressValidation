@@ -99,16 +99,15 @@ public with sharing class LWC_ContactAddressValidation {
         }
 
         if (!error && allowHTTPCallout) {
-            String endpoint = generateEndPoint(addressParameters);
-            HttpRequest req = new HttpRequest();
-            req.setEndpoint(endpoint);
-            req.setMethod('GET');
-            req.setHeader('Content-Type', 'application/json');
-            Http http = new Http();
-            HttpResponse res = http.send(req);
-            String responseBody = res.getBody();
-
             try {
+                String endpoint = generateEndPoint(addressParameters);
+                HttpRequest req = new HttpRequest();
+                req.setEndpoint(endpoint);
+                req.setMethod('GET');
+                req.setHeader('Content-Type', 'application/json');
+                Http http = new Http();
+                HttpResponse res = http.send(req);
+                String responseBody = res.getBody();
 
                 if (addressParameters.isEmpty()) {
                     throw new ValidationException(FAILED_MESSAGE);
@@ -147,8 +146,7 @@ public with sharing class LWC_ContactAddressValidation {
             } catch (ValidationException e) {
                 message = e.getMessage();
                 error = true;
-            } 
-            catch (CalloutException e) {
+            } catch (CalloutException e) {
                 message = e.getMessage();
                 error = true;
             }
